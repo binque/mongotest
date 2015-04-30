@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+ 
+  <mongo:mongo-client host="10.68.52.201" port="27018">
+    <mongo:client-options write-concern="NORMAL" connections-per-host="1000" max-wait-time="2000"/>
+  </mongo:mongo-client> 
+
+<!--   
+  <mongo:mongo-client host="127.0.0.1" port="27017">
+    <mongo:client-options write-concern="NORMAL" connections-per-host="200" max-wait-time="2000"/>
+  </mongo:mongo-client> 
+-->
+  
+  <bean id="mongoDbFactory" class="org.springframework.data.mongodb.core.SimpleMongoDbFactory">
+  	<constructor-arg name="mongo" ref="mongo"/>
+  	<!-- <constructor-arg name="databaseName" value="center1"/> -->
+  	<constructor-arg name="databaseName" value="center0"/>
+  </bean>
+  
+  <mongo:mapping-converter id="converter" />
+  
+  <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+    <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+    <constructor-arg ref="converter" />
+  </bean>
+  
+  <bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+      <property name="corePoolSize" value="10" />
+      <property name="maxPoolSize" value="50" />
+      <property name="queueCapacity" value="100000" />
+  </bean>
+</beans>

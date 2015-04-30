@@ -1,0 +1,27 @@
+.externalToolBuilders/
+*.class
+*.project
+*.classpath
+*.settings/
+bin/
+target/
+# Package Files #
+*.jar
+*.war
+*.ear
+.idea/
+*.iml
+version.properties
+test-output/
+*.bak
+*.log*
+*.lnk
+*rebel.xml
+bin-debug/
+*.wav
+javascripts_compress/
+context.xml
+nb-configuration.xml
+/.DS_Store
+*.DS_Store
+.metadata
